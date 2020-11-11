@@ -1,12 +1,12 @@
-def line_to_grid(line):
-    subline = [line[i:i + 9] for i in range(0, len(line), 9)]
-    return [[int(i) for i in line] for line in subline]
+def line_to_grid(line: str) -> list:
+    sub_line = [line[i:i + 9] for i in range(0, len(line), 9)]
+    return [[int(i) for i in l] for l in sub_line]
 
 
 def pprint_grid(grid):
-    print("- "*13)
+    print("- " * 13)
     for i in range(len(grid)):
-        if i % 3 ==0 and i != 0:
+        if i % 3 == 0 and i != 0:
             print("- "*13)
         for j in range(len(grid[0])):
             if j % 3 == 0 and j != 0:
@@ -15,7 +15,7 @@ def pprint_grid(grid):
                 print("| ", end="")
             print(grid[i][j], end="") if j == 8 else print(str(grid[i][j]) + " ", end="")
         print(" |")
-    print("- "*13)
+    print("- " * 13)
 
 
 def solve(grid):
@@ -58,14 +58,16 @@ def find_empty(grid):
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             if grid[i][j] == 0:
-                return i,j
+                return i, j
     return None
 
 
 if __name__ == '__main__':
     line = input("Enter your sudoku grid as a single line with 0 instead of empty boxes\n")
-    grid = line_to_grid(line)
-    pprint_grid(grid)
-    print("\nSolving...\nDone!\n")
-    solve(grid)
-    pprint_grid(grid)
+    if len(line) == 81:
+        grid = line_to_grid(line)
+        print("\nSolving...\nDone!\n")
+        solve(grid)
+        pprint_grid(grid)
+    else:
+        print(f"Error: you entered {len(line)} numbers instead of 81!")
